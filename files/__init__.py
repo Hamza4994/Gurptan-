@@ -17,3 +17,6 @@ def onemli (text):
 def soru (soru):
    console.print(Panel(f'[bold yellow]{soru}[/]',width=70),justify="center")                         
    return console.input(f"[bold yellow]>> [/]")
+def logo ():
+   text = "█▀▀ █▀▀ █▀█ █▀▀ █▀▀ █▄█ █▄░█\n█▄▄ ██▄ █▀▄ █▄▄ ██▄ ░█░ █░▀█"
+   console.print(Panel(f'[bold cyan]{text}[/]',width=70),justify="center") 
