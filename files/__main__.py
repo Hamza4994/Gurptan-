@@ -78,12 +78,13 @@ def islemler(userbot):
         console.clear()
         logo()
         basarili(f"İşlem Tamamlandı ! {hedefgrup} ögesine {calinacakgrup} ögesinden toplam {calinan} üye eklendi! ")
+        userbot.stop()
         hata("Güle Güle !")
     except Exception as e:
         hata(e)
 
 if __name__ == "__main__":
-    for i in range(15):
+    for i in range(25):
         console.print("\n")
     logo()
 
@@ -97,7 +98,8 @@ if __name__ == "__main__":
         finally:
             cevap= soru("Kod tekrar yürütülsün mü? (y/n)")
             if cevap == "n":
-                a = false
+                a = False
+                userbot.stop()
                 hata("Güle Güle !")
         
 
