@@ -43,19 +43,19 @@ def hesabagir ():
         userbot.connect()
     return userbot
 
-
-if __name__ == "__main__":
-    logo()
-
-    userbot = hesabagir()
+def islemler(userbot):
     onemli("Üye çalacağım grupta bulunmam ve çaldığım üyeleri eklediğim grupta yönetici olmam gerekir..")
     calinacakgrup = soru("Üye Çalınacak Grubun kullanıcı adı: (Hangi gruptan üyeleri çekeyim) ")
+    if not calinacakgrup.startswith("@") and not calinacakgrup.startswith("http"):
+        calinacakgrup = "@" + calinacakgrup
     try:
         count = userbot.get_chat_members_count(calinacakgrup)
         bilgi(f"{calinacakgrup} ögesinde {count} kişi bulundu! ")
     except Exception as e:
         hata(e)
     hedefgrup = soru("Çalınan Üyeleri Hangi Gruba Çekeyim: (Grubun kullanıcı adı) ")
+    if not hedefgrup.startswith("@") and not hedefgrup.startswith("http"):
+        hedefgrup = "@" + hedefgrup
     try:
         count2 = userbot.get_chat_members_count(hedefgrup)
         bilgi(f"Çalacağım grubun ({calinacakgrup}) üye sayısı {count} kişi ! ")
@@ -78,8 +78,27 @@ if __name__ == "__main__":
         console.clear()
         logo()
         basarili(f"İşlem Tamamlandı ! {hedefgrup} ögesine {calinacakgrup} ögesinden toplam {calinan} üye eklendi! ")
+        hata("Güle Güle !")
     except Exception as e:
         hata(e)
+
+if __name__ == "__main__":
+    console.clear()
+    logo()
+
+    userbot = hesabagir()
+    a = true
+    while a:
+        try:
+            islemler(userbot)
+        except Exception as e:
+            onemli(e)
+        finally:
+            cevap= soru("Kod tekrar yürütülsün mü? (y/n)")
+            if cevap == "n":
+                a = false
+                hata("Güle Güle !")
+        
 
     
 
