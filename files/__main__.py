@@ -83,7 +83,8 @@ def islemler(userbot):
         hata(e)
 
 if __name__ == "__main__":
-    console.clear()
+    for i in range(15):
+        console.print("\n")
     logo()
 
     userbot = hesabagir()
