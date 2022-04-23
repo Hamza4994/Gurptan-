@@ -88,7 +88,7 @@ if __name__ == "__main__":
     logo()
 
     userbot = hesabagir()
-    a = true
+    a = True
     while a:
         try:
             islemler(userbot)
