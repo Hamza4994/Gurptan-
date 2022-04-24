@@ -68,13 +68,17 @@ def islemler(userbot):
     calinamayan=0
     calinan=0
     try:
+        bilgi("Hesap koruması nedeniyle her 8 saniyede bir üye çekme isteğinde bulunacak..")
         for member in userbot.iter_chat_members(calinacakgrup):
             try:
                 if member.user.is_bot:
+                    passed("{} bot olduğu için geçiliyor!".format(member.user.username))
                     continue
                 userbot.add_chat_members(hedefgrup, member.user.id)
+                basarili("{} gruba başarıyla eklendi!".format(member.user.first_name))
                 calinan= calinan + 1
             except Exception as e:
+                noadded("{} gruba eklenemedi!".format(member.user.first_name))
                 calinamayan = calinamayan + 1
             sleep(8)
         console.clear()
@@ -103,6 +107,8 @@ if __name__ == "__main__":
                 a = False
                 userbot.stop()
                 hata("Güle Güle !")
+            else:
+                continue
         
 
     
