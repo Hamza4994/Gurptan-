@@ -10,7 +10,11 @@ def hata (text):
    console.print(Panel(f'[bold red]{text}[/]',width=70),justify="center")    
    sys.exit()                     
 def bilgi (text):
-   console.print(Panel(f'[blue]{text}[/]',width=70),justify="center")                         
+   console.print(Panel(f'[blue]{text}[/]',width=70),justify="center")  
+def passed (text):
+   console.print(Panel(f'[yellow]{text}[/]',width=70),justify="center") 
+def noadded (text):
+   console.print(Panel(f'[pink]{text}[/]',width=70),justify="center")  
 def basarili (text):
    console.print(Panel(f'[bold green] {text}[/]',width=70),justify="center")                         
 def onemli (text):
