@@ -46,7 +46,7 @@ def hesabagir ():
 def islemler(userbot):
     onemli("Üye çalacağım grupta bulunmam ve çaldığım üyeleri eklediğim grupta yönetici olmam gerekir..")
     calinacakgrup = soru("Üye Çalınacak Grubun kullanıcı adı: (Hangi gruptan üyeleri çekeyim) ")
-    if not calinacakgrup.startswith("@") and not calinacakgrup.startswith("http"):
+    if not calinacakgrup.startswith("@") and not calinacakgrup.startswith("http") and not calinacakgrup.startswith("t.me"):
         calinacakgrup = "@" + calinacakgrup
     try:
         count = userbot.get_chat_members_count(calinacakgrup)
@@ -54,14 +54,16 @@ def islemler(userbot):
     except Exception as e:
         hata(e)
     hedefgrup = soru("Çalınan Üyeleri Hangi Gruba Çekeyim: (Grubun kullanıcı adı) ")
-    if not hedefgrup.startswith("@") and not hedefgrup.startswith("http"):
+    if not hedefgrup.startswith("@") and not hedefgrup.startswith("http") and not hedefgrup.startswith("t.me"):
         hedefgrup = "@" + hedefgrup
     try:
         count2 = userbot.get_chat_members_count(hedefgrup)
         bilgi(f"Çalacağım grubun ({calinacakgrup}) üye sayısı {count} kişi ! ")
     except Exception as e:
         hata(e)
-    console.clear()
+    sleep(5)
+    for i in range(25):
+        console.print("\n")
     logo()
     calinamayan=0
     calinan=0
