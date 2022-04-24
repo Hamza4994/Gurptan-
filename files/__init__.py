@@ -20,4 +20,4 @@ def soru (soru):
    return console.input(f"[bold yellow]>> [/]")
 def logo ():
    text = "█▀▀ █▀▀ █▀█ █▀▀ █▀▀ █▄█ █▄░█\n█▄▄ ██▄ █▀▄ █▄▄ ██▄ ░█░ █░▀█"
-   console.print(Panel(f'[bold cyan]{text}[/]',width=70),justify="center") 
+   console.print(Panel(f'[bold cyan]{text}[/]',width=90),justify="center") 
