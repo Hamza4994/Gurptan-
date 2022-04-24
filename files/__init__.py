@@ -8,7 +8,7 @@ console = Console()
 
 def hata (text):
    console.print(Panel(f'[bold red]{text}[/]',width=70),justify="center")    
-   sys.exit(1)                     
+   sys.exit()                     
 def bilgi (text):
    console.print(Panel(f'[blue]{text}[/]',width=70),justify="center")                         
 def basarili (text):
