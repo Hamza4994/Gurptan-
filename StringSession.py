@@ -5,7 +5,7 @@ API_ID   = input("Telegram API ID: ")
 API_HASH = input("Telegram API HASH: ")
 
 async def session_olustur(api_id, api_hash):
-    async with Client(":memory:", api_id=api_id, api_hash=api_hash) as app:
+    async with Client("userbot", api_id=api_id, api_hash=api_hash) as app:
         print('\n\n')
         print(await app.export_session_string())
         print('\n')
