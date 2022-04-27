@@ -4,7 +4,7 @@ from pyrogram.errors import (
 )
 from pyrogram import Client as PyrogramClient
 from time import sleep
-from files import *
+from windows import *
 from . import console
 import sys
 userbot=None
