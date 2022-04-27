@@ -70,7 +70,7 @@ def islemler(userbot):
     calinan=0
     try:
         bilgi("Hesap koruması nedeniyle her 8 saniyede bir üye çekme isteğinde bulunacak..")
-        for member in userbot.iter_chat_members(calinacakgrup):
+        for member in userbot.get_chat_members(calinacakgrup):
             try:
                 if member.user.is_bot:
                     passed("{} bot olduğu için geçiliyor!".format(member.user.username))
