@@ -30,7 +30,8 @@ def hesabagir ():
         api_hash,
         device_model='Mac',
         system_version=' | Powered by @cerceyn',
-        app_version=str('| 1.0'))
+        app_version=str('| 1.0'),
+        in_memory=True)
     except FloodWait as e:
         hata(f"Hesabınız flood yemiş! {e.x} saniye")
     except ApiIdInvalid:
