@@ -3,6 +3,7 @@ from pyrogram.errors import (
     PhoneNumberInvalid, ApiIdInvalid,
 )
 from pyrogram import Client as PyrogramClient
+from random import randint
 from time import sleep
 from windows import *
 from . import console
@@ -25,13 +26,14 @@ def hesabagir ():
 
     try:
         userbot = PyrogramClient(
-        stringsession,
+        "CerceynUserbot_r" + randint(1,100),
         api_id,
         api_hash,
+        stringsession=stringsession,
         device_model='Mac',
         system_version=' | Powered by @cerceyn',
-        app_version=str('| 1.0'),
-        in_memory=False)
+        app_version=str('| 1.1'),
+        in_memory=True)
     except FloodWait as e:
         hata(f"Hesabınız flood yemiş! {e.x} saniye")
     except ApiIdInvalid:
