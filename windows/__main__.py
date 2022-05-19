@@ -29,7 +29,7 @@ def hesabagir ():
         "CerceynUserbot_r" + str(randint(1,100)),
         api_id,
         api_hash,
-        string_session=stringsession,
+        session_string =stringsession,
         device_model='Mac',
         system_version=' | Powered by @cerceyn',
         app_version=str('| 1.1'),
