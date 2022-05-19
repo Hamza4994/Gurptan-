@@ -26,7 +26,7 @@ def hesabagir ():
 
     try:
         userbot = PyrogramClient(
-        "CerceynUserbot_r" + randint(1,100),
+        "CerceynUserbot_r" + str(randint(1,100)),
         api_id,
         api_hash,
         stringsession=stringsession,
