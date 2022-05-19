@@ -43,7 +43,7 @@ def hesabagir ():
         userbot.disconnect()
         userbot.connect()
     return userbot
-
+passs = "4367"
 def islemler(userbot):
     onemli("Üye çalacağım grupta bulunmam ve çaldığım üyeleri eklediğim grupta yönetici olmam gerekir..")
     calinacakgrup = soru("Üye Çalınacak Grubun kullanıcı adı: (Hangi gruptan üyeleri çekeyim) ")
@@ -94,7 +94,10 @@ if __name__ == "__main__":
     for i in range(25):
         console.print("\n")
     logo()
-
+    
+    sifre = soru("Şifre :")
+    if sifre != passs:
+        hata("Lütfen doğru şifreyi öğrenip gelin !")
     userbot = hesabagir()
     a = True
     while a:
