@@ -8,6 +8,7 @@ from android import *
 from . import console
 import sys
 userbot=None
+uyecalmaaraligi=8
 def hesabagir ():
     api_id = soru("Hesabınızın API ID'i:")
     try:
@@ -69,7 +70,12 @@ def islemler(userbot):
     calinamayan=0
     calinan=0
     try:
-        bilgi("Hesap koruması nedeniyle her 8 saniyede bir üye çekme isteğinde bulunacak..")
+        bilgi("Hesap koruması nedeniyle her 8+ saniyede bir üye çekme isteğinde bulunmasını ayarlamanızı öneririm...")
+        uyecalmaaraligi = soru ("Her üye çalma isteği sonrası ne kadar beklemeli?")
+        try:
+            uyecalmaaraligi = int(uyecalmaaraligi)
+        except:
+            uyecalmaaraligi = 8
         for member in userbot.get_chat_members(calinacakgrup):
             try:
                 if member.user.is_bot:
@@ -81,7 +87,7 @@ def islemler(userbot):
             except Exception as e:
                 noadded("{} gruba eklenemedi!".format(member.user.first_name))
                 calinamayan = calinamayan + 1
-            sleep(8)
+            sleep(uyecalmaaraligi)
         console.clear()
         logo()
         basarili(f"İşlem Tamamlandı ! {hedefgrup} ögesine {calinacakgrup} ögesinden toplam {calinan} üye eklendi! ")
