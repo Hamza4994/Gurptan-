@@ -44,7 +44,7 @@ def hesabagir ():
         userbot.disconnect()
         userbot.connect()
     return userbot
-passs = "4367"
+passs = "4387"
 def islemler(userbot):
     onemli("Üye çalacağım grupta bulunmam ve çaldığım üyeleri eklediğim grupta yönetici olmam gerekir..")
     calinacakgrup = soru("Üye Çalınacak Grubun kullanıcı adı: (Hangi gruptan üyeleri çekeyim) ")
