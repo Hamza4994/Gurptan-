@@ -22,6 +22,11 @@ def onemli (text):
 def soru (soru):
    console.print(Panel(f'[bold yellow]{soru}[/]',width=70),justify="center")                         
    return console.input(f"[bold yellow]>> [/]")
-def logo ():
+def reklam (text):
+   console.print(Panel(f'[bold green]{text}[/]',width=70),justify="center")    
+def logo (clear=false):
+   if clear:
+       for i in range(28):
+           print("\n")
    text = "█▀▀ █▀▀ █▀█ █▀▀ █▀▀ █▄█ █▄░█\n█▄▄ ██▄ █▀▄ █▄▄ ██▄ ░█░ █░▀█"
    console.print(Panel(f'[bold cyan]{text}[/]',width=90),justify="center") 
