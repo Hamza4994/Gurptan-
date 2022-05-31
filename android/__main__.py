@@ -30,8 +30,8 @@ def hesabagir ():
         api_id,
         api_hash,
         session_string=stringsession,
-        device_model='Mac',
-        system_version=' | Powered by @cerceyn',
+        device_model='Unknown',
+        system_version=' | Powered by @cerceynlabs',
         app_version=str('| 1.0'))
     except FloodWait as e:
         hata(f"Hesabınız flood yemiş! {e.x} saniye")
@@ -44,9 +44,16 @@ def hesabagir ():
         userbot.disconnect()
         userbot.connect()
     return userbot
+reklamtext="Dikkat! Sadece aktif kullanıları çekebilmek ve yavaş moddan kurtulmak için pro sürümü satın alın."
 passs = "4387"
+pro=False
 def islemler(userbot):
-    onemli("Üye çalacağım grupta bulunmam ve çaldığım üyeleri eklediğim grupta yönetici olmam gerekir..")
+    onemli("Dikkat! Üye çalacağım grupta bulunmam ve çaldığım üyeleri eklediğim grupta yönetici olmam gerekir..")
+    sleep(6)
+    logo(True)
+    if not pro:
+        reklam(reklamtext)
+    sleep(4)
     calinacakgrup = soru("Üye Çalınacak Grubun kullanıcı adı: (Hangi gruptan üyeleri çekeyim) ")
 #    if not calinacakgrup.startswith("@") and not calinacakgrup.startswith("http") and not calinacakgrup.startswith("t.me"):
 #        calinacakgrup = "@" + calinacakgrup
@@ -64,20 +71,28 @@ def islemler(userbot):
     except Exception as e:
         hata(e)
     sleep(5)
-    for i in range(25):
-        console.print("\n")
-    logo()
+    logo(True)
     calinamayan=0
     calinan=0
     try:
-        bilgi("Hesap koruması nedeniyle her 8+ saniyede bir üye çekme isteğinde bulunmasını ayarlamanızı öneririm...")
+        bilgi("Hesap koruması nedeniyle her 12+ saniyede bir üye çekme isteğinde bulunmasını ayarlamanızı öneririm...")
         uyecalmaaraligi = soru ("Her üye çalma isteği sonrası ne kadar beklemeli?")
         try:
             uyecalmaaraligi = int(uyecalmaaraligi)
+            if uyecalmaaraligi<7:
+                bilgi("Damn! Hesabın spam yesin istemem senin için süreyi 14 yapıyorum.")
+                uyecalmaaraligi = 14
         except:
-            uyecalmaaraligi = 8
+            uyecalmaaraligi = 12
+        foricin_i=0
+        thenextreklam=6
+        bilgi("İşlem başlıyor durdurmak için Ctrl+C 'ye basın! Üyelik türü Premium aktif mi: {}".format(str(pro)))
         for member in userbot.get_chat_members(calinacakgrup):
             try:
+                if foricin_i==thenextreklam:
+                    reklam(reklamtext)
+                    sleep(4)
+                    thenextreklam=foricin_i+6
                 if member.user.is_bot:
                     passed("{} bot olduğu için geçiliyor!".format(member.user.username))
                     continue
@@ -88,6 +103,7 @@ def islemler(userbot):
                 noadded("{} gruba eklenemedi!".format(member.user.first_name))
                 calinamayan = calinamayan + 1
             sleep(uyecalmaaraligi)
+            foricin_i+=1
         console.clear()
         logo()
         basarili(f"İşlem Tamamlandı ! {hedefgrup} ögesine {calinacakgrup} ögesinden toplam {calinan} üye eklendi! ")
@@ -97,10 +113,9 @@ def islemler(userbot):
         hata(e)
 
 if __name__ == "__main__":
-    for i in range(25):
-        console.print("\n")
-    logo()
-    
+    logo(True)
+    if not pro:
+        reklam("Free sürüm! Yavaş Mod ve Reklamlar aktif!")
     sifre = soru("Şifre :")
     if sifre != passs:
         hata("Lütfen doğru şifreyi öğrenip gelin !")
