@@ -5,7 +5,7 @@ from pyrogram.errors import (
 from pyrogram import Client as PyrogramClient
 from random import randint
 from time import sleep
-from windows import *
+from android import *
 from . import console
 import sys
 userbot=None
@@ -72,14 +72,22 @@ def islemler(userbot):
     calinamayan=0
     calinan=0
     try:
-        bilgi("Hesap koruması nedeniyle her 8+ saniyede bir üye çekme isteğinde bulunmasını ayarlamanızı öneririm...")
+        bilgi("Hesap koruması nedeniyle her 12+ saniyede bir üye çekme isteğinde bulunmasını ayarlamanızı öneririm...")
         uyecalmaaraligi = soru ("Her üye çalma isteği sonrası ne kadar beklemeli?")
         try:
             uyecalmaaraligi = int(uyecalmaaraligi)
         except:
-            uyecalmaaraligi = 8
+            uyecalmaaraligi = 14
+        foricin_i=0
+        thenextreklam=6
+        bilgi("İşlem başlıyor durdurmak için Ctrl+C 'ye basın! Üyelik türü Premium aktif mi: {}".format(str(pro)))
+
         for member in userbot.get_chat_members(calinacakgrup):
             try:
+                if foricin_i==thenextreklam:
+                    reklam(reklamtext)
+                    sleep(4)
+                    thenextreklam=foricin_i+6
                 if member.user.is_bot:
                     passed("{} bot olduğu için geçiliyor!".format(member.user.username))
                     continue
@@ -89,7 +97,8 @@ def islemler(userbot):
             except Exception as e:
                 noadded("{} gruba eklenemedi!".format(member.user.first_name))
                 calinamayan = calinamayan + 1
-            sleep(8)
+            sleep(uyecalmaaraligi)
+            foricin_i+=1
         console.clear()
         logo()
         basarili(f"İşlem Tamamlandı ! {hedefgrup} ögesine {calinacakgrup} ögesinden toplam {calinan} üye eklendi! ")
@@ -97,12 +106,14 @@ def islemler(userbot):
         hata("Güle Güle !")
     except Exception as e:
         hata(e)
-
+reklamtext="Dikkat! Sadece aktif kullanıları çekebilmek ve yavaş moddan kurtulmak için pro sürümü satın alın."
+passs = "4387"
+pro=False
 if __name__ == "__main__":
-    for i in range(25):
-        console.print("\n")
-    logo()
-
+    logo(True)
+    sifre = soru("Şifre :")
+    if sifre != passs:
+        hata("Lütfen doğru şifreyi öğrenip gelin !")
     userbot = hesabagir()
     a = True
     while a:
