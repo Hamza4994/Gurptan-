@@ -24,7 +24,7 @@ def soru (soru):
    return console.input(f"[bold yellow]>> [/]")
 def reklam (text):
    console.print(Panel(f'[bold green]{text}[/]',width=70),justify="center")    
-def logo (clear=false):
+def logo (clear=False):
    if clear:
        for i in range(28):
            print("\n")
