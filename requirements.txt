@@ -1,4 +1,2 @@
-pyrogram
-pyromod
-TgCrypto
+telethon
 rich
