@@ -1,4 +1,4 @@
-from .android import pip_
+from android import pip_
 import asyncio
 import os
 import sys
