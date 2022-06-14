@@ -3,7 +3,6 @@ import os
 import sys
 import time
 import random
-from unittest.result import failfast
 try:
     from rich.console import Console
     from rich.panel import Panel
