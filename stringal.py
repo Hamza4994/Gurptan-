@@ -1,3 +1,4 @@
+from .android import pip_
 import asyncio
 import os
 import sys
@@ -7,12 +8,7 @@ try:
     from rich.console import Console
     from rich.panel import Panel
 except:
-   print("[!] Rich Bulunamadı. Yükleniyor...")
-
-   if os.name == 'nt':
-      os.system("python3 -m pip install rich")
-   else:
-      os.system("pip3 install rich")
+    pip_("rich")
 finally:
     from rich.console import Console
     from rich.panel import Panel
@@ -26,18 +22,11 @@ from telethon.sessions import StringSession
 console = Console()
 
 try:
-   import requests
-   import bs4
+    import requests
+    import bs4
 except:
-   print("[!] Requests Bulunamadı. Yükleniyor...")
-   print("[!] Bs4 Bulunamadı. Yükleniyor...")
-
-   if os.name == 'nt':
-      os.system("python3 -m pip install requests")
-      os.system("python3 -m pip install bs4")
-   else:
-      os.system("pip3 install requests")
-      os.system("pip3 install bs4")
+    pip_("requests")
+    pip_("bs4")
 finally:
     import requests
     import bs4
