@@ -1,5 +1,6 @@
 from subprocess import PIPE, Popen
 from rich.live_render import LiveRender
+from time import sleep as antripp
 from rich.console import Console
 from rich.panel import Panel
 import os, shutil
@@ -10,7 +11,7 @@ def hata (text):
     console.print(Panel(f'[bold red]{text}[/]',width=70),justify="center")    
     sys.exit()
 def pip_(module):
-    bilgi(f"installing {module} for cerceynlab")
+    onemli(f"installing {module} for cerceynlab")
     pip_cmd = ["pip", "install", f"{module}"]
     process = Popen(pip_cmd, stdout=PIPE, stderr=PIPE)
     stdout, stderr = process.communicate()
@@ -27,8 +28,9 @@ def basarili (text):
     console.print(Panel(f'[bold green] {text}[/]',width=70),justify="center")                         
 def onemli (text):
     console.print(Panel(f'[bold cyan]{text}[/]',width=70),justify="center")      
-def ads (text):
-   console.print(Panel(f'[bold green]{text}[/]',width=70),justify="center")                   
+def ads (text,time=5):
+   console.print(Panel(f'[bold green]{text}[/]',width=70),justify="center")     
+   antripp(time)              
 def soru (soru):
     console.print(Panel(f'[bold yellow]{soru}[/]',width=70),justify="center")                         
     return console.input(f"[bold yellow]>> [/]")
