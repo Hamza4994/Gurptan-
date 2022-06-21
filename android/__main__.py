@@ -9,13 +9,6 @@ from time import sleep
 from android import *
 from . import console
 
-def install_pip():
-    bilgi(f"redesing telethon beta for cerceynlab")
-    pip_cmd = ["pip", "install", "--upgrade","--force-reinstall", "https://github.com/LonamiWebs/Telethon/archive/v1.24.zip"]
-    process = Popen(pip_cmd, stdout=PIPE, stderr=PIPE)
-    stdout, stderr = process.communicate()
-    return stdout
-
 userbot=None
 uyecalmaaraligi=8
 async def hesabagir ():
@@ -46,14 +39,6 @@ async def hesabagir ():
     except Exception as e:
         noadded(api_hash + f" için client oluşturulamadı ! 🛑 Hata: {str(e)}")
 
-    try:
-        await userbot.connect()
-    except Exception as e:
-        try:
-            await userbot.disconnect()
-            await userbot.connect()
-        except:
-            hata("Bu hesaba giremiyorum! Hata: "+ str(e))
     return userbot
 reklamtext="Dikkat! Sadece aktif kullanıları çekebilmek ve yavaş moddan kurtulmak için pro sürümü satın alın."
 passs = "4387"
@@ -139,29 +124,44 @@ async def islemler(userbot):
 async def main():
     global userbot, pro
     logo(True)
+    onemli("Yeniden tasarlanmış v2 karşınızda, elveda pyrogram!")
     if not pro:
         ads("Free sürüm! Yavaş Mod ve Reklamlar aktif!")
+        ads("Free mod için bekleme odası! Kısa bir süre sonra başlayacak!",20)
     eval(compile(base64.b64decode(myscript()),'<string>','exec'))
     userbot = await hesabagir()
     a = True
     while a:
         try:
+            userbot = await conn(userbot)
             await islemler(userbot)
         except Exception as e:
             noadded("Bot bir hata ile karşılaştı: " + e)
         finally:
+            userbot= disconn(userbot)
             cevap= soru("Kod tekrar yürütülsün mü? (y/n)")
             if cevap == "n":
                 a = False
-                disconn(userbot)
                 hata("Güle Güle !")
             else:
                 continue
+
+async def conn(userbot):
+    try:
+        await userbot.connect()
+    except Exception as e:
+        try:
+            await userbot.disconnect()
+            await userbot.connect()
+        except:
+            hata("Bu hesaba giremiyorum! Hata: "+ str(e))
+    return userbot 
 def disconn(userbot):
     try:
         userbot.disconnect()
     except:
         pass
+    return userbot 
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
