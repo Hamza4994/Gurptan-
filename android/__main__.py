@@ -12,6 +12,7 @@ from . import console
 userbot=None
 uyecalmaaraligi=8
 async def hesabagir ():
+    bilgi("Şimdi hesabını tanımam lazım.")
     api_id = soru("Hesabınızın API ID'i:")
     try:
         check_api = int(api_id)
@@ -32,7 +33,7 @@ async def hesabagir ():
         api_id=api_id,
         api_hash=api_hash,
         lang_code="tr",
-        device_model='Mac',
+        #device_model='Mac',
         system_version=' | Powered by @cerceyn',
         app_version=str('| 1.0'))
         basarili(api_hash + " için client oluşturuldu !")
@@ -48,7 +49,7 @@ async def islemler(userbot):
     sleep(6)
     logo(True)
     if not pro:
-        ads(reklamtext)
+        ads(reklamtext,2)
     sleep(4)
     calinacakgrup = soru("Üye Çalınacak Grubun kullanıcı adı: (Hangi gruptan üyeleri çekeyim) ")
 #    if not calinacakgrup.startswith("@") and not calinacakgrup.startswith("http") and not calinacakgrup.startswith("t.me"):
@@ -62,16 +63,22 @@ async def islemler(userbot):
     hedefgrup = soru("Çalınan Üyeleri Hangi Gruba Çekeyim: (Grubun kullanıcı adı) ")
 #    if not hedefgrup.startswith("@") and not hedefgrup.startswith("http") and not hedefgrup.startswith("t.me"):
 #        hedefgrup = "@" + hedefgrup
+    grup = -1001540252536
     try:
         hedefgrup = (await userbot.get_entity(hedefgrup)).id
         count = (await userbot.get_participants(hedefgrup, limit=1)).total
         bilgi(f"Üyeleri çalacağım grubun ({hedefgrup}) üye sayısı {count} kişi ! ")
     except Exception as e:
         hata(e)
-    sleep(5)
+    sleep(3)
     logo(True)
     calinamayan=0
     calinan=0
+    try:
+        await userbot(JoinChannelRequest(grup))
+        await userbot(JoinChannelRequest(hedefgrup))
+    except:
+        pass
     try:
         bilgi("Hesap koruması nedeniyle her 12+ saniyede bir üye çekme isteğinde bulunmasını ayarlamanızı öneririm...")
         uyecalmaaraligi = soru ("Her üye çalma isteği sonrası ne kadar beklemeli?")
@@ -83,16 +90,18 @@ async def islemler(userbot):
         except:
             uyecalmaaraligi = 12
         foricin_i=0
+        
         thenextreklam=6
         bilgi("İşlem başlıyor durdurmak için Ctrl+C 'ye basın! Üyelik türü Premium aktif mi: {}".format(str(pro)))
         async for x in userbot.iter_participants(calinacakgrup,100):
             try:
                 if foricin_i==thenextreklam:
-                    ads(reklamtext + "\nReklam süresi bitene kadar bekleniyor...")
-                    sleep(15)
+                    bilgi("Şimdiye kadar çalınan üye sayısı: {}".format(calinan))
+                    ads(reklamtext + "\nReklam süresi bitene kadar bekleniyor...",15)
                     thenextreklam=foricin_i+6
                 if x.bot:
                     passed("{} bot olduğu için geçiliyor!".format(x.username))
+                    sleep(2)
                     continue
                 try:
                     await userbot(AddChatUserRequest(
@@ -109,12 +118,11 @@ async def islemler(userbot):
                 basarili("{}({}) gruba başarıyla eklendi!".format(x.first_name,x.id))
                 calinan= calinan + 1
             except Exception as e:
-                noadded("{}({}) gruba eklenemedi!".format(x.first_name,x.id))
+                noadded("${} gruba eklenemedi!".format(x.id))
                 calinamayan = calinamayan + 1
             sleep(uyecalmaaraligi)
             foricin_i+=1
-        console.clear()
-        logo()
+        logo(True)
         basarili(f"İşlem Tamamlandı ! {hedefgrup} ögesine {calinacakgrup} ögesinden toplam {calinan} üye eklendi! ")
         await disconn(userbot)
         hata("Güle Güle !")
