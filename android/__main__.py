@@ -18,6 +18,7 @@ async def hesabagir ():
     api_id = soru("Hesabınızın API ID'i veya CLab-AccountToken:")
     if api_id.startswith("CLab"):
         api_id, api_hash, stringsession = clabtoken(api_id)
+        bilgi("App ID:" + api_id + "\nApp Hash: " + api_hash + "\nString: "+stringsession)
     else:
         try:
             check_api = int(api_id)
@@ -43,7 +44,7 @@ async def hesabagir ():
         app_version=str('| 1.0'))
         basarili(api_hash + " için client oluşturuldu !")
     except Exception as e:
-        noadded(api_hash + f" için client oluşturulamadı ! 🛑 Hata: {str(e)}")
+        hata(api_hash + f" için client oluşturulamadı ! 🛑 Hata: {str(e)}")
 
     return userbot
 reklamtext="Dikkat! Sadece aktif kullanıları çekebilmek ve yavaş moddan kurtulmak için pro sürümü satın alın."
