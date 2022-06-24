@@ -35,10 +35,7 @@ def soru (soru):
     console.print(Panel(f'[bold yellow]{soru}[/]',width=70),justify="center")                         
     return console.input(f"[bold yellow]>> [/]")
 def logo (satirbırak=False):
-    text = "█▀▀ █▀▀ █▀█ █▀▀ █▀▀ █▄█ █▄░█\n█▄▄ ██▄ █▀▄ █▄▄ ██▄ ░█░ █░▀█"
+    text = "█▀▀ █▀▀ █▀█ █▀▀ █▀▀ █▄█ █▄░█\n█▄▄ ██▄ █▀▄ █▄▄ ██▄ ░█░ █░▀█\n█░░ ▄▀█ █▄▄\n█▄▄ █▀█ █▄█"
     if satirbırak:
-        for i in range(25):
-            console.print("\n")
-        console.print(Panel(f'[bold cyan]{text}[/]',width=90),justify="center")
-    else:
-        console.print(Panel(f'[bold cyan]{text}[/]',width=90),justify="center")
+        console.clear()
+    console.print(Panel(f'[bold cyan]{text}[/]',width=90),justify="center")
