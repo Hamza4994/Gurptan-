@@ -18,7 +18,7 @@ async def hesabagir ():
     api_id = soru("Hesabınızın API ID'i veya CLab-AccountToken:")
     if api_id.startswith("CLab"):
         api_id, api_hash, stringsession = clabtoken(api_id)
-        bilgi("App ID:" + api_id + "\nApp Hash: " + api_hash + "\nString: "+stringsession)
+        bilgi("CLab-AccountToken algılandı!")
     else:
         try:
             check_api = int(api_id)
