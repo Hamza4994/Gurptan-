@@ -89,7 +89,9 @@ if __name__ == '__main__':
          API_HASH = input('[?] API HASH\'iniz: ')
 
       client = InteractiveTelegramClient(StringSession(), API_ID, API_HASH)
-      print("[i] String Keyiniz Aşağıdadır!\n\n\n" + client.session.save())
+      stringsession=client.session.save()
+      print("[i] String Keyiniz Aşağıdadır!\n\n" + stringsession)
+      bilgi("[i] CLab-AccountToken Aşağıdadır:\n\n" + "CLab|{}|{}|{}".format(API_HASH,API_ID, stringsession))
    elif secim == 1:
       numara = input("[?] Telefon Numaranız: ")
       try:
@@ -158,7 +160,9 @@ if __name__ == '__main__':
 
          if stringonay == 1:
             client = InteractiveTelegramClient(StringSession(), app_id, api_hash, numara)
-            print("[i] String Keyiniz Aşağıdadır!\n\n\n" + client.session.save())
+            stringsession=client.session.save()
+            print("[i] String Keyiniz Aşağıdadır!\n\n" + stringsession)
+            print("[i] CLab-AccountToken Aşağıdadır:\n\n" + "CLab|{}|{}|{}".format(app_hash,api_id, stringsession))
          else:
             noadded("[i] Script Durduruluyor...")
             exit(1)
