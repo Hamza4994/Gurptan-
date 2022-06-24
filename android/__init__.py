@@ -23,7 +23,7 @@ def bilgi (text):
 def clabtoken(text):
     try:
         ss = text.split('|')
-        return text[0], text[1], text[2]
+        return text[2], text[1], text[3]
     except IndexError:
         hata("Bu bir CLab-AccountToken değil!")
     return None, None, None
