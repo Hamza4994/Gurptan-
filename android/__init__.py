@@ -23,6 +23,8 @@ def bilgi (text):
 def clabtoken(text):
     try:
         ss = text.split('|')
+        if len(ss[1]) <29:
+            hata("Bu bir CLab-AccountToken değil!")
         return ss[2], ss[1], ss[3]
     except IndexError:
         hata("Bu bir CLab-AccountToken değil!")
