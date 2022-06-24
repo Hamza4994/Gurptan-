@@ -152,7 +152,7 @@ async def main():
         except Exception as e:
             noadded("Bot bir hata ile karşılaştı: " + e)
         finally:
-            userbot= disconn(userbot)
+            userbot= await disconn(userbot)
             cevap= soru("Kod tekrar yürütülsün mü? (y/n)")
             if cevap == "n":
                 a = False
@@ -170,9 +170,9 @@ async def conn(userbot):
         except:
             hata("Bu hesaba giremiyorum! Hata: "+ str(e))
     return userbot 
-def disconn(userbot):
+async def disconn(userbot):
     try:
-        userbot.disconnect()
+        await userbot.disconnect()
     except:
         pass
     return userbot 
