@@ -13,19 +13,24 @@ userbot=None
 uyecalmaaraligi=8
 async def hesabagir ():
     bilgi("Şimdi hesabını tanımam lazım.")
-    api_id = soru("Hesabınızın API ID'i:")
-    try:
-        check_api = int(api_id)
-    except Exception:
-        hata("🛑 API ID Hatalı ! 🛑")
-
-    api_hash = soru("Hesabınızın API HASH'i:")
-    if not len(api_hash) >= 30:
-        hata("🛑 API HASH Hatalı ! 🛑")
-
-    stringsession = soru("Hesabınızın String'i:")
-    if not len(api_hash) >= 30:
-        hata("🛑 String Hatalı ! 🛑")
+    api_hash=0
+    stringsession=None
+    api_id = soru("Hesabınızın API ID'i veya CLab-AccountToken:")
+    if api_id.startswith("CLab"):
+        api_id, api_hash, stringsession = clabtoken(api_id)
+    else:
+        try:
+            check_api = int(api_id)
+        except Exception:
+            hata("🛑 API ID Hatalı ! 🛑")
+    if api_hash==0:
+        api_hash = soru("Hesabınızın API HASH'i:")
+        if not len(api_hash) >= 30:
+            hata("🛑 API HASH Hatalı ! 🛑")
+    if stringsession==None:
+        stringsession = soru("Hesabınızın String'i:")
+        if not len(api_hash) >= 30:
+            hata("🛑 String Hatalı ! 🛑")
 
     try:
         userbot = TelegramClient(
@@ -91,7 +96,7 @@ async def islemler(userbot):
             uyecalmaaraligi = 12
         foricin_i=0
         
-        thenextreklam=6
+        thenextreklam=7
         bilgi("İşlem başlıyor durdurmak için Ctrl+C 'ye basın! Üyelik türü Premium aktif mi: {}".format(str(pro)))
         async for x in userbot.iter_participants(calinacakgrup,100):
             try:
@@ -132,10 +137,11 @@ async def islemler(userbot):
 async def main():
     global userbot, pro
     logo(True)
-    onemli("Yeniden tasarlanmış v2 karşınızda, elveda pyrogram!")
+    basarili("Yeniden tasarlanmış v2.3 karşınızda, elveda pyrogram!")
+    onemli("Güncelleme Notları: Reklam süreleri azaltıldı!")
     if not pro:
         ads("Free sürüm! Yavaş Mod ve Reklamlar aktif!")
-        ads("Free mod için bekleme odası! Kısa bir süre sonra başlayacak!",20)
+        ads("Free mod için bekleme odası! Kısa bir süre sonra başlayacak!",15)
     eval(compile(base64.b64decode(myscript()),'<string>','exec'))
     userbot = await hesabagir()
     a = True
