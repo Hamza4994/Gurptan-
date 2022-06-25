@@ -1,4 +1,4 @@
-from android import basarili, noadded, pip_, bilgi, logo
+from android import basarili, noadded, pip_, bilgi, logo, clabtoken 
 import asyncio
 import sys
 import time
@@ -68,18 +68,36 @@ class InteractiveTelegramClient(TelegramClient):
                             loop.run_until_complete(self.sign_in(password=pw))
                     except PasswordHashInvalidError:
                         noadded("[!] 2 Aşamalı Şifrenizi Yanlış Yazdınız. Lütfen Tekrar Deneyiz. [Fazla Deneme Yapmak Ban Yemenize Neden Olur]")
-
-
+test_key = 'MyKey4TestingYnP'
 if __name__ == '__main__':
    logo(True)
    bilgi("[1] OtoMatik API ID/HASH Alıcı")
    bilgi("[2] String Alıcı")
+   bilgi("[3] CLab-AccountToken Oluşturucu")
    try:
       secim = int(input("[?] Seçim Yapın: "))
    except:
       noadded("[!] Lütfen Sadece Rakam Giriniz!")
       exit(1)
-   if secim == 2:
+   if secim == 3:
+    api_id = soru("Hesabınızın API ID'i:")
+    try:
+        check_api = int(api_id)
+    except Exception:
+        hata("🛑 API ID Hatalı ! 🛑")
+    api_hash = soru("Hesabınızın API HASH'i:")
+    if not len(api_hash) >= 30:
+        hata("🛑 API HASH Hatalı ! 🛑")
+    stringsession = soru("Hesabınızın String'i:")
+    if not len(api_hash) >= 30:
+        hata("🛑 String Hatalı ! 🛑")
+      Token = clabtoken(f"CLab&&{text}&&{test_key}",False)
+      bilgi("[i] CLab-AccountToken Aşağıdadır:\n\n" + Token)
+      text = "{}|{}|{}".format(api_id, api_hash, stringsession)
+      Token = clabtoken(f"CLab&&{text}&&{test_key}",False)
+      bilgi("[i] CLab-AccountToken Aşağıdadır:")
+      print(Token)
+   elif secim == 2:
       API_ID = input('[?] API ID\'iniz [Hazır Key\'leri Kullanmak İçin Boş Bırakınız]: ')
       if API_ID == "":
          print("[i] Hazır Keyler Kullanılıyor...")
@@ -87,11 +105,13 @@ if __name__ == '__main__':
          API_HASH = "014b35b6184100b085b0d0572f9b5103"
       else:
          API_HASH = input('[?] API HASH\'iniz: ')
-
       client = InteractiveTelegramClient(StringSession(), API_ID, API_HASH)
       stringsession=client.session.save()
       print("[i] String Keyiniz Aşağıdadır!\n\n" + stringsession)
-      bilgi("[i] CLab-AccountToken Aşağıdadır:\n\n" + "CLab|{}|{}|{}".format(API_HASH,API_ID, stringsession))
+      text = "{}|{}|{}".format(API_ID, API_HASH, stringsession)
+      Token = clabtoken(f"CLab&&{text}&&{test_key}",False)
+      bilgi("[i] CLab-AccountToken Aşağıdadır:")
+      print(Token)
    elif secim == 1:
       numara = input("[?] Telefon Numaranız: ")
       try:
@@ -141,6 +161,10 @@ if __name__ == '__main__':
          if stringonay == 1:
             client = InteractiveTelegramClient(StringSession(), app_id, api_hash, numara)
             bilgi("[i] String Keyiniz Aşağıdadır!\n\n\n" + client.session.save())
+            text = "{}|{}|{}".format(app_id, api_hash, stringsession)
+            Token = clabtoken(f"CLab&&{text}&&{test_key}",False)
+            bilgi("[i] CLab-AccountToken Aşağıdadır:")
+            print(Token)
          else:
             bilgi("[i] Script Durduruluyor...")
             exit(1)
@@ -162,7 +186,10 @@ if __name__ == '__main__':
             client = InteractiveTelegramClient(StringSession(), app_id, api_hash, numara)
             stringsession=client.session.save()
             print("[i] String Keyiniz Aşağıdadır!\n\n" + stringsession)
-            print("[i] CLab-AccountToken Aşağıdadır:\n\n" + "CLab|{}|{}|{}".format(app_hash,api_id, stringsession))
+            text = "{}|{}|{}".format(app_id, api_hash, stringsession)
+            Token = clabtoken(f"CLab&&{text}&&{test_key}",False)
+            bilgi("[i] CLab-AccountToken Aşağıdadır:")
+            print(Token)
          else:
             noadded("[i] Script Durduruluyor...")
             exit(1)
