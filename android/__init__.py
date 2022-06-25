@@ -24,7 +24,7 @@ def clabtoken(text,coz=True):
     data = [1, 2, 3, 4, 5]
     ktext=None
     key=None
-    with console.status("[bold green] Clabtoken Çözülüyor...") as status:
+    with console.status("[bold blue] Clabtoken İşlemi Sürüyor...") as status:
         while data:
             num = data.pop(0)
             antripp(1)
@@ -36,23 +36,25 @@ def clabtoken(text,coz=True):
                     hata("Bu bir CLab-AccountToken değil!")
             elif num==2:
                 test_crpt = CLabToken()
-                console.log(f"[green]Token nesnesi oluşturuldu![/green] {num}")
+                console.log(f"[green]Token nesnesi oluşturuldu![/green]")
             elif num==3 and coz==False:
-                test_enc_text = test_crpt.yap(ktext, key)
-                console.log(f"[green]Token Şifreleniyor.[/green] {num}")
+                test_enctext = test_crpt.yap(ktext, key)
+                console.log(f"[green]Token Şifreleniyor.[/green]")
+                test_enc_text = f"CLab&&{test_enctext}&&{key}"
+                console.log(f"[green]Token Formatı Ayarlandı![/green]")
             elif num==4 and coz:
-                console.log(f"[green]Token çözülüyor..[/green] {num}")
+                console.log(f"[green]Token çözülüyor..[/green]")
                 test_dec_text = test_crpt.coz(ktext, key)
-                console.log(f"[green]Bilgiler ayrıştırılıyor...[/green] {num}")
+                console.log(f"[green]Bilgiler ayrıştırılıyor...[/green]")
                 api_id = test_dec_text.split("|")[0]
                 api_hash = test_dec_text.split("|")[1]
                 string = test_dec_text.split("|")[2]
             elif num==5:
                 if not coz:
-                    console.log(f"[green]Token oluşturma işlemi başarılı![/green] {num}")
+                    console.log(f"[green]Token oluşturma işlemi başarılı![/green]")
                     return test_enc_text
                 else:
-                    console.log(f"[green]Token çözme işlemi başarılı![/green] {num}")
+                    console.log(f"[green]Token çözme işlemi başarılı![/green]")
                     return api_id, api_hash, string 
 
     try:
