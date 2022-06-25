@@ -1,4 +1,4 @@
-from android import basarili, noadded, pip_, bilgi, logo, clabtoken 
+from android import basarili, noadded, pip_, bilgi, soru, logo, clabtoken 
 import asyncio
 import sys
 import time
@@ -98,7 +98,7 @@ if __name__ == '__main__':
       bilgi("[i] CLab-AccountToken Aşağıdadır:")
       print(Token)
    elif secim == 2:
-      API_ID = input('[?] API ID\'iniz [Hazır Key\'leri Kullanmak İçin Boş Bırakınız]: ')
+      API_ID = soru('[?] API ID\'iniz [Hazır Key\'leri Kullanmak İçin Boş Bırakınız]: ')
       if API_ID == "":
          print("[i] Hazır Keyler Kullanılıyor...")
          API_ID = 4
@@ -113,7 +113,7 @@ if __name__ == '__main__':
       bilgi("[i] CLab-AccountToken Aşağıdadır:")
       print(Token)
    elif secim == 1:
-      numara = input("[?] Telefon Numaranız: ")
+      numara = soru("[?] Telefon Numaranız: ")
       try:
          rastgele = requests.post("https://my.telegram.org/auth/send_password", data={"phone": numara}).json()["random_hash"]
       except:
