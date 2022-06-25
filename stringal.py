@@ -80,16 +80,16 @@ if __name__ == '__main__':
       noadded("[!] Lütfen Sadece Rakam Giriniz!")
       exit(1)
    if secim == 3:
-    api_id = soru("Hesabınızın API ID'i:")
-    try:
+      api_id = soru("Hesabınızın API ID'i:")
+      try:
         check_api = int(api_id)
-    except Exception:
+      except Exception:
         hata("🛑 API ID Hatalı ! 🛑")
-    api_hash = soru("Hesabınızın API HASH'i:")
-    if not len(api_hash) >= 30:
+      api_hash = soru("Hesabınızın API HASH'i:")
+      if not len(api_hash) >= 30:
         hata("🛑 API HASH Hatalı ! 🛑")
-    stringsession = soru("Hesabınızın String'i:")
-    if not len(api_hash) >= 30:
+      stringsession = soru("Hesabınızın String'i:")
+      if not len(api_hash) >= 30:
         hata("🛑 String Hatalı ! 🛑")
       Token = clabtoken(f"CLab&&{text}&&{test_key}",False)
       bilgi("[i] CLab-AccountToken Aşağıdadır:\n\n" + Token)
