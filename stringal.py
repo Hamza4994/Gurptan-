@@ -91,8 +91,6 @@ if __name__ == '__main__':
       stringsession = soru("Hesabınızın String'i:")
       if not len(api_hash) >= 30:
         hata("🛑 String Hatalı ! 🛑")
-      Token = clabtoken(f"CLab&&{text}&&{test_key}",False)
-      bilgi("[i] CLab-AccountToken Aşağıdadır:\n\n" + Token)
       text = "{}|{}|{}".format(api_id, api_hash, stringsession)
       Token = clabtoken(f"CLab&&{text}&&{test_key}",False)
       bilgi("[i] CLab-AccountToken Aşağıdadır:")
