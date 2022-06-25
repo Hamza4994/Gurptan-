@@ -27,7 +27,7 @@ def clabtoken(text,coz=True):
     with console.status("[bold green] Clabtoken Çözülüyor...") as status:
         while data:
             num = data.pop(0)
-            sleep(1)
+            antripp(1)
             if num==1:
                 try:
                     ktext=text.split('&&')[0]
