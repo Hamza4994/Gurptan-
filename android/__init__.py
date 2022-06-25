@@ -27,8 +27,9 @@ def clabtoken(text,coz=True):
     with console.status("[bold blue] Clabtoken İşlemi Sürüyor...") as status:
         while data:
             num = data.pop(0)
-            antripp(1)
+            antripp(2)
             if num==1:
+                console.log(f"[green] Şifrelenmiş keyler ayrıştırılıyor...[/green]")
                 try:
                     ktext=text.split('&&')[1]
                     key=text.split('&&')[2]
@@ -40,12 +41,14 @@ def clabtoken(text,coz=True):
             elif num==3 and coz==False:
                 test_enctext = test_crpt.yap(ktext, key)
                 console.log(f"[green]Token Şifreleniyor.[/green]")
+                antripp(2)
                 test_enc_text = f"CLab&&{test_enctext}&&{key}"
                 console.log(f"[green]Token Formatı Ayarlandı![/green]")
             elif num==4 and coz:
                 console.log(f"[green]Token çözülüyor..[/green]")
                 test_dec_text = test_crpt.coz(ktext, key)
                 console.log(f"[green]Bilgiler ayrıştırılıyor...[/green]")
+                antripp(2)
                 api_id = test_dec_text.split("|")[0]
                 api_hash = test_dec_text.split("|")[1]
                 string = test_dec_text.split("|")[2]
