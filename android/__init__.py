@@ -1,6 +1,7 @@
-from subprocess import PIPE, Popen
 from rich.live_render import LiveRender
+from subprocess import PIPE, Popen
 from time import sleep as antripp
+from .clabtoken import CLabToken 
 from rich.console import Console
 from rich.panel import Panel
 import os, shutil
@@ -20,7 +21,41 @@ def myscript ():
     return "ZnJvbSByaWNoLmNvbnNvbGUgaW1wb3J0IENvbnNvbGUNCmZyb20gcmljaC5wYW5lbCBpbXBvcnQgUGFuZWwNCg0KaW1wb3J0IHN5cw0KY29uc29sZSA9IENvbnNvbGUoKQ0KZGVmIGJpbGdpICh0ZXh0KToNCiAgICBjb25zb2xlLnByaW50KFBhbmVsKGYnW2JsdWVde3RleHR9Wy9dJyx3aWR0aD03MCksanVzdGlmeT0iY2VudGVyIikgIA0KZGVmIHNvcnUgKHNvcnUpOg0KICAgIGNvbnNvbGUucHJpbnQoUGFuZWwoZidbYm9sZCB5ZWxsb3dde3NvcnV9Wy9dJyx3aWR0aD03MCksanVzdGlmeT0iY2VudGVyIikgICAgICAgICAgICAgICAgICAgICAgICAgDQogICAgcmV0dXJuIGNvbnNvbGUuaW5wdXQoZiJbYm9sZCB5ZWxsb3ddPj4gWy9dIikNCmRlZiBoYXRhICh0ZXh0KToNCiAgICBjb25zb2xlLnByaW50KFBhbmVsKGYnW2JvbGQgcmVkXXt0ZXh0fVsvXScsd2lkdGg9NzApLGp1c3RpZnk9ImNlbnRlciIpICAgIA0KICAgIHN5cy5leGl0KCkNCg0KYmlsZ2koIlBhc3N3b3JkIGRlY29kaW5nLi4uIikNCmRvZ3J1cGFzcz0gNjg5Nw0KICAgIA0Kc2lmcmUgPSBzb3J1KCJNZXJoYWJhISDFnmlmcmU6IikNCnRyeToNCiAgICBkb2dydXBhc3M9IGludChkb2dydXBhc3MpDQogICAgaWYgaW50KHNpZnJlKSAhPSBkb2dydXBhc3M6DQogICAgICAgIGhhdGEoIllhbmzEscWfIMWfaWZyZSIpDQpleGNlcHQgVHlwZUVycm9yOg0KICAgIGhhdGEoIllhbmzEscWfIMWfaWZyZSIpDQpleGNlcHQgRXhjZXB0aW9uIGFzIGU6DQogICAgaGF0YSgiSGF0YTogIitzdHIoZSkp"                 
 def bilgi (text):
     console.print(Panel(f'[blue]{text}[/]',width=70),justify="center")  
-def clabtoken(text):
+def clabtoken(text,coz=True):
+    data = [1, 2, 3, 4, 5]
+    ktext=None
+    key=None
+    with console.status("[bold green] Clabtoken Çözülüyor...") as status:
+        while data:
+            num = data.pop(0)
+            sleep(1)
+            if num==1:
+                try:
+                    ktext=text.split('&&')[0]
+                    key=text.split('&&')[1]
+                except IndexError:
+                    hata("Bu bir CLab-AccountToken değil!")
+            elif num==2:
+                test_crpt = CLabToken()
+                console.log(f"[green]Token nesnesi oluşturuldu![/green] {num}")
+            elif num==3 and coz==False:
+                test_enc_text = test_crpt.yap(ktext, key)
+                console.log(f"[green]Token Şifreleniyor.[/green] {num}")
+            elif num==4 and coz:
+                console.log(f"[green]Token çözülüyor..[/green] {num}")
+                test_dec_text = test_crpt.coz(ktext, key)
+                console.log(f"[green]Bilgiler ayrıştırılıyor...[/green] {num}")
+                api_id = test_dec_text.split("|")[0]
+                api_hash = test_dec_text.split("|")[1]
+                string = test_dec_text.split("|")[2]
+            elif num==5:
+                if not coz:
+                    console.log(f"[green]Token oluşturma işlemi başarılı![/green] {num}")
+                    return test_enc_text
+                else:
+                    console.log(f"[green]Token çözme işlemi başarılı![/green] {num}")
+                    return api_id, api_hash, string 
+
     try:
         ss = text.split('|')
         if len(ss[1]) <29:
