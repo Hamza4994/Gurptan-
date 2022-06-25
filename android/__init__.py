@@ -30,8 +30,8 @@ def clabtoken(text,coz=True):
             antripp(1)
             if num==1:
                 try:
-                    ktext=text.split('&&')[0]
-                    key=text.split('&&')[1]
+                    ktext=text.split('&&')[1]
+                    key=text.split('&&')[2]
                 except IndexError:
                     hata("Bu bir CLab-AccountToken değil!")
             elif num==2:
