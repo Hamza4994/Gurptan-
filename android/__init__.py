@@ -1,4 +1,3 @@
-from rich.live_render import LiveRender
 from subprocess import PIPE, Popen
 from time import sleep as antripp
 from .clabtoken import CLabToken 
@@ -81,5 +80,6 @@ def soru (soru):
 def logo (satirbırak=False):
     text = "█▀▀ █▀▀ █▀█ █▀▀ █▀▀ █▄█ █▄░█\n█▄▄ ██▄ █▀▄ █▄▄ ██▄ ░█░ █░▀█\n█░░ ▄▀█ █▄▄\n█▄▄ █▀█ █▄█"
     if satirbırak:
-        console.clear()
+        for i in range(25):
+            console.print("\n")
     console.print(Panel(f'[bold cyan]{text}[/]',width=90),justify="center")
