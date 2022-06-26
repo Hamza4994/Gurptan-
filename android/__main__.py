@@ -106,9 +106,9 @@ async def islemler(userbot):
                 passed("{} bot olduğu için geçiliyor!".format(A.username))
                 sleep(2);continue
             try:
-                bilgi("Şimdiye kadar çalınan üye sayısı: {}".format(calinan))
-                if foricin_i==thenextreklam and not pro:
-                    ads(reklamtext + "\nReklam süresi bitene kadar bekleniyor...",15)
+                if foricin_i==thenextreklam:
+                    if not pro:ads(reklamtext + "\nReklam süresi bitene kadar bekleniyor...",15)
+                    bilgi("Şimdiye kadar çalınan üye sayısı: {}".format(calinan))
                     thenextreklam=foricin_i+6
                 try:
                     await userbot(AddChatUserRequest(
@@ -124,9 +124,8 @@ async def islemler(userbot):
                         raise Exception(s)
                 calinan= calinan + 1
                 basarili("{}({}) gruba başarıyla eklendi!".format(A.first_name,A.id))
-                calinan= calinan + 1
             except Exception as e:
-                if not pro:noadded("${} gruba eklenemedi!".format(A.id))
+                noadded("${} gruba eklenemedi!: {}".format(A.id,str(e)))
                 calinamayan = calinamayan + 1; continue 
             sleep(uyecalmaaraligi)
             foricin_i+=1
