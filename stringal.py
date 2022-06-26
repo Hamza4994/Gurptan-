@@ -158,7 +158,8 @@ if __name__ == '__main__':
 
          if stringonay == 1:
             client = InteractiveTelegramClient(StringSession(), app_id, api_hash, numara)
-            bilgi("[i] String Keyiniz Aşağıdadır!\n\n\n" + client.session.save())
+            stringsession=client.session.save()
+            bilgi("[i] String Keyiniz Aşağıdadır!\n\n\n" + stringsession)
             text = "{}|{}|{}".format(app_id, api_hash, stringsession)
             Token = clabtoken(f"CLab&&{text}&&{test_key}",False)
             bilgi("[i] CLab-AccountToken Aşağıdadır:")
