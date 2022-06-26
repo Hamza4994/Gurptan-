@@ -1,13 +1,12 @@
-import asyncio
-import base64
-from subprocess import PIPE, Popen
-from telethon import TelegramClient
-from telethon.sessions import StringSession
 from telethon.tl.functions.messages import AddChatUserRequest
 from telethon.tl.functions.channels import InviteToChannelRequest
+from telethon.sessions import StringSession
+from telethon import TelegramClient
+from random import sample as I
 from time import sleep
 from android import *
-from . import console
+import asyncio
+import base64
 
 userbot=None
 uyecalmaaraligi=8
@@ -99,10 +98,45 @@ async def islemler(userbot):
         
         thenextreklam=7
         bilgi("İşlem başlıyor durdurmak için Ctrl+C 'ye basın! Üyelik türü Premium aktif mi: {}".format(str(pro)))
+        F=await userbot.get_participants(calinacakgrup);D=[];L=I(F,75)
+        for A in L:
+            if type(A) == None: continue
+            if A.id in D: continue
+            if A.bot:
+                passed("{} bot olduğu için geçiliyor!".format(A.username))
+                sleep(2);continue
+            try:
+                bilgi("Şimdiye kadar çalınan üye sayısı: {}".format(calinan))
+                if foricin_i==thenextreklam and not pro:
+                    ads(reklamtext + "\nReklam süresi bitene kadar bekleniyor...",15)
+                    thenextreklam=foricin_i+6
+                try:
+                    await userbot(AddChatUserRequest(
+                        hedefgrup,
+                        A.id,
+                        fwd_limit=10))
+                except Exception as s:
+                    try:
+                        await userbot(InviteToChannelRequest(
+                        hedefgrup,
+                        [A.id]))
+                    except:
+                        raise Exception(s)
+                calinan= calinan + 1
+                basarili("{}({}) gruba başarıyla eklendi!".format(A.first_name,A.id))
+                calinan= calinan + 1
+            except Exception as e:
+                if not pro:noadded("${} gruba eklenemedi!".format(A.id))
+                calinamayan = calinamayan + 1; continue 
+            sleep(uyecalmaaraligi)
+            foricin_i+=1
+
+            D.append(A.id)
+        """
         async for x in userbot.iter_participants(calinacakgrup,100):
             try:
-                if foricin_i==thenextreklam:
-                    bilgi("Şimdiye kadar çalınan üye sayısı: {}".format(calinan))
+                bilgi("Şimdiye kadar çalınan üye sayısı: {}".format(calinan))
+                if foricin_i==thenextreklam and not pro:
                     ads(reklamtext + "\nReklam süresi bitene kadar bekleniyor...",15)
                     thenextreklam=foricin_i+6
                 if x.bot:
@@ -124,10 +158,11 @@ async def islemler(userbot):
                 basarili("{}({}) gruba başarıyla eklendi!".format(x.first_name,x.id))
                 calinan= calinan + 1
             except Exception as e:
-                noadded("${} gruba eklenemedi!".format(x.id))
-                calinamayan = calinamayan + 1
+                if not pro:noadded("${} gruba eklenemedi!".format(x.id))
+                calinamayan = calinamayan + 1; continue 
             sleep(uyecalmaaraligi)
             foricin_i+=1
+        """
         logo(True)
         basarili(f"İşlem Tamamlandı ! {hedefgrup} ögesine {calinacakgrup} ögesinden toplam {calinan} üye eklendi! ")
         await disconn(userbot)
@@ -138,8 +173,8 @@ async def islemler(userbot):
 async def main():
     global userbot, pro
     logo(True)
-    basarili("Yeniden tasarlanmış v2.3 karşınızda, elveda pyrogram!")
-    onemli("Güncelleme Notları: Reklam süreleri azaltıldı!")
+    basarili("Yeniden tasarlanmış v2.5 karşınızda, elveda pyrogram!")
+    onemli("Güncelleme Notları:\nÜye çekme mantığı geliştirildi!\nBedava pro sürümü için @berce'ye yazın")
     if not pro:
         ads("Free sürüm! Yavaş Mod ve Reklamlar aktif!")
         ads("Free mod için bekleme odası! Kısa bir süre sonra başlayacak!",15)
