@@ -68,6 +68,22 @@ def clabtoken(text,coz=True):
     except IndexError:
         hata("Bu bir CLab-AccountToken değil!")
     return None, None, None
+def login():
+    bilgi("Password decoding...")
+    dogrupass= [6897,888]
+    
+    sifre = soru("Merhaba! Şifre:")
+    try:
+        sifre = int(sifre)
+        if sifre not in dogrupass:
+            hata("Yanlış şifre")
+        if sifre == dogrupass[1]:
+            return True
+        else:return False
+    except TypeError:
+        hata("Yanlış şifre")
+    except Exception as e:
+        hata("Hata: "+str(e))
 def passed (text):
     console.print(Panel(f'[yellow]{text}[/]',width=70),justify="center") 
 def noadded (text):
