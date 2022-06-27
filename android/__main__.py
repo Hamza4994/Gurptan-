@@ -172,6 +172,7 @@ async def islemler(userbot):
 async def main():
     global userbot, pro
     logo(True)
+    hata("Bot şuan bakımda!")
     basarili("Yeniden tasarlanmış v2.5 karşınızda, elveda pyrogram!")
     onemli("Güncelleme Notları:\nÜye çekme mantığı geliştirildi!\nBedava pro sürümü için @berce'ye yazın")
     pro=login()
