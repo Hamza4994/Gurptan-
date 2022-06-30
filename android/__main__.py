@@ -1,10 +1,15 @@
-from telethon.tl.functions.messages import AddChatUserRequest
+from android import *
+try:
+    from telethon.tl.functions.messages import AddChatUserRequest
+except:
+    pip_("telethon")
+finally:
+    from telethon.tl.functions.messages import AddChatUserRequest
 from telethon.tl.functions.channels import InviteToChannelRequest
 from telethon.sessions import StringSession
 from telethon import TelegramClient
 from random import sample as I
 from time import sleep
-from android import *
 import asyncio
 import base64
 
@@ -125,7 +130,7 @@ async def islemler(userbot):
                 calinan= calinan + 1
                 basarili("{}({}) gruba başarıyla eklendi!".format(A.first_name,A.id))
             except Exception as e:
-                noadded("${} gruba eklenemedi!: {}".format(A.id,str(e)))
+                #noadded("${} gruba eklenemedi!: {}".format(A.id,str(e)))
                 calinamayan = calinamayan + 1; continue 
             sleep(uyecalmaaraligi)
             foricin_i+=1
@@ -172,8 +177,8 @@ async def islemler(userbot):
 async def main():
     global userbot, pro
     logo(True)
-    hata("Bot şuan bakımda!")
-    basarili("Yeniden tasarlanmış v2.5 karşınızda, elveda pyrogram!")
+    #hata("Bot şuan bakımda!")
+    basarili("Yeniden tasarlanmış v3 karşınızda, elveda pyrogram!")
     onemli("Güncelleme Notları:\nÜye çekme mantığı geliştirildi!\nBedava pro sürümü için @berce'ye yazın")
     pro=login()
     if not pro:

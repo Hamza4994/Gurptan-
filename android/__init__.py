@@ -1,8 +1,14 @@
 from subprocess import PIPE, Popen
 from time import sleep as antripp
-from .clabtoken import CLabToken 
-from rich.console import Console
-from rich.panel import Panel
+from .clabtoken import CLabToken
+try: 
+    from rich.console import Console
+    from rich.panel import Panel
+except:
+    pip_("rich")
+finally:
+    from rich.console import Console
+    from rich.panel import Panel
 import os, shutil
 import sys
 
