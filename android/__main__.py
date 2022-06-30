@@ -70,6 +70,8 @@ async def islemler(userbot):
         count = (await userbot.get_participants(calinacakgrup, limit=1)).total
         bilgi(f"{calinacakgrup} ögesinde {count} kişi bulundu! ")
     except Exception as e:
+        if "deleted/deactivated" in str(e):
+            hata("Telegram adminleri hesabınızı yasaklamış olduğundan işlem yapılamıyor")
         hata(e)
     hedefgrup = soru("Çalınan Üyeleri Hangi Gruba Çekeyim: (Grubun kullanıcı adı) ")
 #    if not hedefgrup.startswith("@") and not hedefgrup.startswith("http") and not hedefgrup.startswith("t.me"):
@@ -80,6 +82,8 @@ async def islemler(userbot):
         count = (await userbot.get_participants(hedefgrup, limit=1)).total
         bilgi(f"Üyeleri çalacağım grubun ({hedefgrup}) üye sayısı {count} kişi ! ")
     except Exception as e:
+        if "deleted/deactivated" in str(e):
+            hata("Telegram adminleri hesabınızı yasaklamış olduğundan işlem yapılamıyor")
         hata(e)
     sleep(3)
     logo(True)
@@ -194,7 +198,9 @@ async def main():
         try:
             userbot = await conn(userbot)
             await islemler(userbot)
-        except Exception:
+        except Exception as e:
+            if "deleted/deactivated" in str(e):
+                hata("Telegram adminleri hesabınızı yasaklamış olduğundan işlem yapılamıyor")
             noadded("Bot bir hata ile karşılaştı: \n" + format_exc())
         finally:
             userbot= await disconn(userbot)
@@ -213,6 +219,8 @@ async def conn(userbot):
             await userbot.disconnect()
             await userbot.connect()
         except:
+            if "deleted/deactivated" in str(e):
+                hata("Telegram adminleri hesabınızı yasaklamış olduğundan işlem yapılamıyor")
             hata("Bu hesaba giremiyorum! Hata: "+ str(e))
     return userbot 
 async def disconn(userbot):
