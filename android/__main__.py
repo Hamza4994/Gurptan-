@@ -186,6 +186,7 @@ async def main():
     if not pro:
         ads("Free sürüm! Yavaş Mod ve Reklamlar aktif!")
         ads("Free mod için bekleme odası! Kısa bir süre sonra başlayacak!",15)
+    else: ads("Premium için teşekkürler !")
     #eval(compile(base64.b64decode(myscript()),'<string>','exec'))
     userbot = await hesabagir()
     a = True
@@ -193,8 +194,8 @@ async def main():
         try:
             userbot = await conn(userbot)
             await islemler(userbot)
-        except Exception as e:
-            noadded("Bot bir hata ile karşılaştı: " + e)
+        except Exception:
+            noadded("Bot bir hata ile karşılaştı: \n" + format_exc())
         finally:
             userbot= await disconn(userbot)
             cevap= soru("Kod tekrar yürütülsün mü? (y/n)")
