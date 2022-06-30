@@ -8,6 +8,7 @@ finally:
 from telethon.tl.functions.channels import InviteToChannelRequest
 from telethon.sessions import StringSession
 from telethon import TelegramClient
+from traceback import format_exc
 from random import sample as I
 from time import sleep
 import asyncio
@@ -131,6 +132,7 @@ async def islemler(userbot):
                 basarili("{}({}) gruba başarıyla eklendi!".format(A.first_name,A.id))
             except Exception as e:
                 #noadded("${} gruba eklenemedi!: {}".format(A.id,str(e)))
+                noadded(format_exc())
                 calinamayan = calinamayan + 1; continue 
             sleep(uyecalmaaraligi)
             foricin_i+=1
