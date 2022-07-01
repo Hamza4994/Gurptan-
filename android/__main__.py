@@ -5,7 +5,7 @@ except:
     pip_("telethon")
 finally:
     from telethon.tl.functions.messages import AddChatUserRequest
-from telethon.tl.functions.channels import InviteToChannelRequest
+from telethon.tl.functions.channels import InviteToChannelRequest, JoinChannelRequest
 from telethon.sessions import StringSession
 from telethon import TelegramClient
 from traceback import format_exc
