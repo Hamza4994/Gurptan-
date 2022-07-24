@@ -42,11 +42,7 @@ async def hesabagir ():
         userbot = TelegramClient(
         StringSession(stringsession),
         api_id=api_id,
-        api_hash=api_hash,
-        lang_code="tr",
-        #device_model='Mac',
-        system_version=' | Powered by @cerceyn',
-        app_version=str('| 1.0'))
+        api_hash=api_hash)
         basarili(api_hash + " için client oluşturuldu !")
     except Exception as e:
         hata(api_hash + f" için client oluşturulamadı ! 🛑 Hata: {str(e)}")
