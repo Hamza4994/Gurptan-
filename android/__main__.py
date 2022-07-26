@@ -131,8 +131,8 @@ async def islemler(userbot):
                 calinan= calinan + 1
                 basarili("{}({}) gruba başarıyla eklendi!".format(A.first_name,A.id))
             except Exception as e:
-                #noadded("${} gruba eklenemedi!: {}".format(A.id,str(e)))
-                noadded(format_exc())
+                noadded("${} gruba eklenemedi!: {}".format(A.id,str(e)))
+                #noadded(format_exc())
                 calinamayan = calinamayan + 1; continue 
             sleep(uyecalmaaraligi)
             foricin_i+=1
