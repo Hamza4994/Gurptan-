@@ -10,7 +10,7 @@ finally:
     from rich.console import Console
     from rich.panel import Panel
 import os, shutil
-import sys
+import sys,json
 
 console = Console()
 def hata (text):
@@ -22,10 +22,13 @@ def pip_(module):
     process = Popen(pip_cmd, stdout=PIPE, stderr=PIPE)
     stdout, stderr = process.communicate()
     return stdout
-def myscript ():
-    return "ZnJvbSByaWNoLmNvbnNvbGUgaW1wb3J0IENvbnNvbGUNCmZyb20gcmljaC5wYW5lbCBpbXBvcnQgUGFuZWwNCg0KaW1wb3J0IHN5cw0KY29uc29sZSA9IENvbnNvbGUoKQ0KZGVmIGJpbGdpICh0ZXh0KToNCiAgICBjb25zb2xlLnByaW50KFBhbmVsKGYnW2JsdWVde3RleHR9Wy9dJyx3aWR0aD03MCksanVzdGlmeT0iY2VudGVyIikgIA0KZGVmIHNvcnUgKHNvcnUpOg0KICAgIGNvbnNvbGUucHJpbnQoUGFuZWwoZidbYm9sZCB5ZWxsb3dde3NvcnV9Wy9dJyx3aWR0aD03MCksanVzdGlmeT0iY2VudGVyIikgICAgICAgICAgICAgICAgICAgICAgICAgDQogICAgcmV0dXJuIGNvbnNvbGUuaW5wdXQoZiJbYm9sZCB5ZWxsb3ddPj4gWy9dIikNCmRlZiBoYXRhICh0ZXh0KToNCiAgICBjb25zb2xlLnByaW50KFBhbmVsKGYnW2JvbGQgcmVkXXt0ZXh0fVsvXScsd2lkdGg9NzApLGp1c3RpZnk9ImNlbnRlciIpICAgIA0KICAgIHN5cy5leGl0KCkNCg0KYmlsZ2koIlBhc3N3b3JkIGRlY29kaW5nLi4uIikNCmRvZ3J1cGFzcz0gNjg5Nw0KICAgIA0Kc2lmcmUgPSBzb3J1KCJNZXJoYWJhISDFnmlmcmU6IikNCnRyeToNCiAgICBkb2dydXBhc3M9IGludChkb2dydXBhc3MpDQogICAgaWYgaW50KHNpZnJlKSAhPSBkb2dydXBhc3M6DQogICAgICAgIGhhdGEoIllhbmzEscWfIMWfaWZyZSIpDQpleGNlcHQgVHlwZUVycm9yOg0KICAgIGhhdGEoIllhbmzEscWfIMWfaWZyZSIpDQpleGNlcHQgRXhjZXB0aW9uIGFzIGU6DQogICAgaGF0YSgiSGF0YTogIitzdHIoZSkp"                 
+           
 def bilgi (text):
     console.print(Panel(f'[blue]{text}[/]',width=70),justify="center")  
+with open("strings.json","r",encoding="utf-8") as dosya:
+    clabjson = json.loads(dosya.read())
+def myscript ():
+    return clabjson["cerceynlablisanskodu"]      
 def clabtoken(text,coz=True):
     data = [1, 2, 3, 4, 5]
     ktext=None
@@ -40,7 +43,7 @@ def clabtoken(text,coz=True):
                     ktext=text.split('&&')[1]
                     key=text.split('&&')[2]
                 except IndexError:
-                    hata("Bu bir CLab-AccountToken değil!")
+                    hata(clabjson["nottoken"])
             elif num==2:
                 test_crpt = CLabToken()
                 console.log(f"[green]Token nesnesi oluşturuldu![/green]")
@@ -75,19 +78,18 @@ def clabtoken(text,coz=True):
         hata("Bu bir CLab-AccountToken değil!")
     return None, None, None
 def login():
-    bilgi("Password decoding...")
-    dogrupass= [6897,888]
+    dogrupass= [clabjson["cg1"],clabjson["cg0"]]
     
-    sifre = soru("Merhaba! Şifre:")
+    sifre = soru(clabjson["hi"])
     try:
         sifre = int(sifre)
         if sifre not in dogrupass:
-            hata("Yanlış şifre")
+            hata(clabjson["ump"])
         if sifre == dogrupass[1]:
             return True
         else:return False
     except TypeError:
-        hata("Yanlış şifre")
+        hata(clabjson["ump"])
     except Exception as e:
         hata("Hata: "+str(e))
 def passed (text):
